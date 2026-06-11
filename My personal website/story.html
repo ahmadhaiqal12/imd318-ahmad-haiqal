@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmad Haiqal Gadafi // My Story</title>
+    <!-- Font Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Icon Framework -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Global Variable & Branding Colors */
+        :root { 
+            --bg-color: #000000; 
+            --surface-color: #0b0d10; 
+            --border-color: #1a1f26; 
+            --primary-text: #ffffff; 
+            --secondary-text: #90a0b5; 
+            --accent-color: #00ffcc; 
+            --accent-glow: rgba(0, 255, 204, 0.25); 
+            --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.8); 
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+            --border-radius: 16px; 
+        }
+
+        [data-theme="light"] { 
+            --bg-color: #f4f6f9; 
+            --surface-color: #ffffff; 
+            --border-color: #e2e8f0; 
+            --primary-text: #0f172a; 
+            --secondary-text: #64748b; 
+            --accent-color: #00a884; 
+            --accent-glow: rgba(0, 168, 132, 0.15); 
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--primary-text); 
+            transition: background-color 0.4s, color 0.4s; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow-x: hidden;
+        }
+
+        /* Fixed Navigation Header */
+        header { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            background-color: rgba(0, 0, 0, 0.6); 
+            backdrop-filter: blur(12px); 
+            border-bottom: 1px solid var(--border-color); 
+            z-index: 1000; 
+            padding: 20px 0; 
+        }
+        
+        [data-theme="light"] header { 
+            background-color: rgba(244, 246, 249, 0.7); 
+        }
+
+        .nav-container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 0 20px; 
+        }
+
+        .logo { 
+            font-weight: 800; 
+            font-size: 1.4rem; 
+            letter-spacing: -0.5px;
+        }
+        
+        .logo span { 
+            color: var(--accent-color); 
+        }
+        
+        .logo a { 
+            color: var(--primary-text); 
+            text-decoration: none; 
+        }
+
+        .nav-menu { 
+            display: flex; 
+            gap: 35px; 
+            list-style: none; 
+            align-items: center; 
+        }
+
+        .nav-link { 
+            font-size: 0.9rem; 
+            font-weight: 500; 
+            color: var(--secondary-text); 
+            text-decoration: none; 
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition-smooth); 
+        }
+
+        .nav-link:hover, .nav-link.active { 
+            color: var(--primary-text); 
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link.active::after, .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle, .hamburger { 
+            background: none; 
+            border: none; 
+            font-size: 1.2rem; 
+            color: var(--primary-text); 
+            cursor: pointer; 
+            transition: var(--transition-smooth);
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .hamburger { 
+            display: none; 
+            position: relative;
+            z-index: 1001;
+        }
+
+        /* --- MAIN LAYOUT SECTION --- */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 140px 20px 80px 20px;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .page-title span {
+            color: var(--accent-color);
+        }
+
+        .page-subtitle {
+            color: var(--secondary-text);
+            font-size: 1rem;
+            margin-bottom: 40px;
+        }
+
+        /* Grid Utama Story - Editorial Two Columns */
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* PORTRAIT VIDEO DISPLAY BOX WITH HOVER EFFECT */
+        .portrait-video-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9 / 16; /* Menjaga nisbah video menegak */
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .portrait-video-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-gradient-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, rgba(11, 13, 16, 0.8), transparent);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .portrait-video-box:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+
+        /* INTERACTIVE NEON PLAY BUTTON STYLE */
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            width: 70px;
+            height: 70px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            z-index: 5;
+            transition: var(--transition-smooth);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .portrait-video-box:hover .video-play-btn {
+            background-color: var(--accent-color);
+            color: #000000;
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 0 25px var(--accent-color);
+        }
+
+        /* Sembunyikan butang play secara lancar bila video sedang berjalan */
+        .portrait-video-box.video-playing .video-play-btn {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -50%) scale(0.8);
+        }
+
+        /* RIGHT STREAM: TEXT CONTENT CARDS */
+        .story-stream {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .story-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-smooth);
+        }
+
+        .story-card:hover {
+            border-color: rgba(0, 255, 204, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 255, 204, 0.03);
+        }
+
+        .story-card h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .story-card h2 i {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+        }
+
+        .story-card p {
+            color: var(--secondary-text);
+            font-size: 0.98rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .story-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .story-quote {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 18px;
+            margin: 25px 0;
+            font-style: italic;
+            color: var(--primary-text);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        /* Footer Element */
+        footer { 
+            background: #050608; 
+            color: var(--secondary-text); 
+            padding: 25px 20px; 
+            border-top: 1px solid var(--border-color); 
+            font-size: 0.82rem; 
+            margin-top: auto;
+        }
+        
+        [data-theme="light"] footer { 
+            background: #eaedf2; 
+        }
+
+        .footer-container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-socials a {
+            color: var(--secondary-text);
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-socials a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive Breakpoints */
+        @media(max-width: 992px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+            
+            .portrait-video-box {
+                max-width: 420px;
+                margin: 0 auto;
+            }
+        }
+
+        @media(max-width: 768px) {
+            .hamburger { 
+                display: block; 
+            }
+            
+            .nav-menu { 
+                position: fixed; 
+                top: 0; 
+                right: -100%; 
+                width: 260px; 
+                height: 100vh; 
+                background: var(--surface-color); 
+                flex-direction: column; 
+                justify-content: center; 
+                gap: 40px;
+                border-left: 1px solid var(--border-color); 
+                transition: 0.4s cubic-bezier(0.25, 1, 0.5, 1); 
+                box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+            }
+            
+            .nav-menu.active { 
+                right: 0; 
+            }
+
+            main {
+                padding-top: 110px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .story-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="logo"><a href="index.html">Haiqal<span>.G</span></a></div>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="story.html" class="nav-link active">Story</a></li>
+                    <li><a href="capabilities.html" class="nav-link">Capabilities</a></li>
+                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <div style="display:flex; align-items:center; gap:18px;">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme"><i class="fa-solid fa-moon"></i></button>
+                <button class="hamburger" id="hamburger" aria-label="Open Menu"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main>
+        <h1 class="page-title">My <span>Story</span></h1>
+        <p class="page-subtitle">My Digital Story: Insights into My Studies and Life Journey</p>
+
+        <!-- TWO COLUMN LAYOUT SYSTEM -->
+        <div class="story-grid">
+            
+            <!-- LEFT COLUMN: PORTRAIT VIDEO BOX WITH CLICK CONTROL -->
+            <div class="portrait-video-box" id="videoWrapper">
+                <!-- Nama fail diprogramkan mengikut video me.mp4 hampa -->
+                <video id="storyVideo" playsinline>
+                    <source src="video%20me.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-gradient-overlay"></div>
+                
+                <!-- Butang Play Ikon Neon -->
+                <div class="video-play-btn" id="playBtn">
+                    <i class="fa-solid fa-play"></i>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: TEXT CONTENT -->
+            <div class="story-stream">
+                
+                <!-- Card 1: Titik Permulaan -->
+                <div class="story-card">
+                    <h2><i class="fa-solid fa-book-open"></i> Starting Point</h2>
+                    <p>Everyone has their own narrative, and mine is no different. My journey began with a simple curiosity about how information and technology interact to simplify our daily lives. As I embarked on my higher education journey, my focus became clearer, steering me toward the field of Information Systems Management.</p>
+                    
+                    <div class="story-quote">
+                        "Technology is more than just code; it is the art of organizing information to build a more efficient future."
+                    </div>
+
+                    <p>MThrough my academic journey in this diploma program, I have moved beyond theoretical data management. I have challenged myself to explore the practical worlds of web development, UI/UX design, and database logic.</p>
+                </div>
+
+                <!-- Card 2: Visi & Nilai Diri -->
+                <div class="story-card">
+                    <h2><i class="fa-solid fa-compass"></i> Values & Core Principles</h2>
+                    <p>BTo me, learning never stops within the walls of a classroom. I believe that combining disciplined information management with the creativity of digital design allows me to craft technological solutions that are not only highly functional but also intuitive and user-friendly.</p>
+                    <p>n every task or personal project I undertake, I am fully committed to ensuring that my code and designs meet high standards of cleanliness, structure, and aesthetics. This web portfolio is a tangible testament to my dedication and deep-rooted passion for pursuing excellence.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- System Footer -->
+    <footer>
+        <div class="footer-container">
+            <div>© 2026 Ahmad Haiqal Gadafi. All Rights Reserved.</div>
+            <div class="footer-socials">
+                <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="contact.html"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT CONTROLLER -->
+    <script>
+        // --- SYSTEM CONTROLLER (THEME & HAMBURGER) ---
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        themeToggle.innerHTML = (currentTheme === 'dark') ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+
+        themeToggle.addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.innerHTML = (theme === 'dark') ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        });
+
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                hamburger.querySelector('i').className = 'fa-solid fa-bars';
+            }
+        });
+
+        // --- VIDEO INTERACTIVE PLAY/PAUSE CONTROLLER ---
+        const videoWrapper = document.getElementById('videoWrapper');
+        const storyVideo = document.getElementById('storyVideo');
+        
+        function toggleVideo() {
+            if (storyVideo.paused) {
+                storyVideo.play();
+                videoWrapper.classList.add('video-playing');
+            } else {
+                storyVideo.pause();
+                videoWrapper.classList.remove('video-playing');
+            }
+        }
+
+        // Klik mana-mana kawasan kotak video untuk fungsi play/pause
+        videoWrapper.addEventListener('click', toggleVideo);
+
+        // Munculkan balik butang main jika video sudah habis ditonton
+        storyVideo.addEventListener('ended', () => {
+            videoWrapper.classList.remove('video-playing');
+        });
+    </script>
+</body>
+</html>
