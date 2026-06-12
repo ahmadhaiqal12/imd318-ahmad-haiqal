@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmad Haiqal Gadafi // Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #000000;
+            --surface-color: #0b0d10;
+            --border-color: #1a1f26;
+            --primary-text: #ffffff;
+            --secondary-text: #90a0b5;
+            --accent-color: #00ffcc;
+            --accent-glow: rgba(0, 255, 204, 0.25);
+            --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --border-radius: 16px;
+        }
+        [data-theme="light"] {
+            --bg-color: #f4f6f9;
+            --surface-color: #ffffff;
+            --border-color: #e2e8f0;
+            --primary-text: #0f172a;
+            --secondary-text: #64748b;
+            --accent-color: #00a884;
+            --accent-glow: rgba(0, 168, 132, 0.15);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-text);
+            transition: background-color 0.4s, color 0.4s;
+            min-height: 100vh;
+            display: flex; flex-direction: column; overflow-x: hidden;
+        }
+
+        /* ── NAVBAR ── */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000; padding: 20px 0;
+        }
+        [data-theme="light"] header { background-color: rgba(244, 246, 249, 0.7); }
+        .nav-container {
+            max-width: 1100px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+        }
+        .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
+        .logo span { color: var(--accent-color); }
+        .logo a { color: var(--primary-text); text-decoration: none; }
+        .nav-menu { display: flex; gap: 35px; list-style: none; align-items: center; }
+        .nav-link {
+            font-size: 0.9rem; font-weight: 500; color: var(--secondary-text);
+            text-decoration: none; position: relative; padding: 5px 0;
+            transition: var(--transition-smooth);
+        }
+        .nav-link:hover, .nav-link.active { color: var(--primary-text); }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 0; height: 2px; background-color: var(--accent-color);
+            transition: var(--transition-smooth);
+        }
+        .nav-link.active::after, .nav-link:hover::after { width: 100%; }
+        .theme-toggle, .hamburger {
+            background: none; border: none; font-size: 1.2rem;
+            color: var(--primary-text); cursor: pointer; transition: var(--transition-smooth);
+        }
+        .theme-toggle:hover { color: var(--accent-color); transform: scale(1.1); }
+        .hamburger { display: none; position: relative; z-index: 1001; }
+
+        /* ── MAIN ── */
+        main {
+            max-width: 1100px; margin: 0 auto;
+            padding: 140px 20px 80px 20px;
+            width: 100%; flex-grow: 1;
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            margin-bottom: 14px;
+            opacity: 0; transform: translateY(30px);
+            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+        }
+        .page-title {
+            font-size: 2.8rem; font-weight: 800;
+            letter-spacing: -1px; text-transform: uppercase;
+        }
+        .page-title span { color: var(--accent-color); }
+        .title-underline {
+            width: 50px; height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 99px; margin-top: 10px;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* ── FILTER TABS ── */
+        .filter-bar {
+            display: flex; gap: 10px; flex-wrap: wrap;
+            margin-bottom: 40px; margin-top: 28px;
+            opacity: 0; transform: translateY(20px);
+            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+        }
+        .filter-btn {
+            padding: 8px 22px;
+            border-radius: 99px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--secondary-text);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.88rem; font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .filter-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--primary-text);
+        }
+        .filter-btn.active {
+            background: transparent;
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        /* ── MASONRY GRID ── */
+        .gallery-grid {
+            columns: 3;
+            column-gap: 16px;
+            opacity: 0; transform: translateY(20px);
+            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 16px;
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Overlay on hover */
+        .gallery-item .overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex; flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+        .overlay-tag {
+            font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--accent-color); margin-bottom: 4px;
+        }
+        .overlay-title {
+            font-size: 0.95rem; font-weight: 700;
+            color: #ffffff;
+        }
+
+        .gallery-item:hover img { transform: scale(1.06); }
+        .gallery-item:hover { border-color: rgba(0,255,204,0.35); box-shadow: 0 0 25px var(--accent-glow); }
+        .gallery-item:hover .overlay { opacity: 1; }
+
+        /* Hide/show filter */
+        .gallery-item.hidden {
+            display: none;
+        }
+
+        /* Empty state */
+        .empty-state {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--secondary-text);
+            font-size: 0.95rem;
+        }
+        .empty-state i {
+            font-size: 2.5rem;
+            color: var(--border-color);
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(16px);
+            z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        .lightbox.open { opacity: 1; pointer-events: all; }
+        .lightbox img {
+            max-width: 88vw; max-height: 85vh;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+            transform: scale(0.92);
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .lightbox.open img { transform: scale(1); }
+        .lightbox-close {
+            position: absolute; top: 24px; right: 28px;
+            background: none; border: none;
+            color: var(--secondary-text); font-size: 1.6rem;
+            cursor: pointer; transition: var(--transition-smooth);
+        }
+        .lightbox-close:hover { color: var(--accent-color); transform: scale(1.15); }
+        .lightbox-caption {
+            position: absolute; bottom: 28px;
+            text-align: center; width: 100%;
+            font-size: 0.85rem; color: var(--secondary-text);
+        }
+        .lightbox-caption span { color: var(--accent-color); }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #050608; color: var(--secondary-text);
+            padding: 25px 20px; border-top: 1px solid var(--border-color);
+            font-size: 0.82rem; margin-top: auto;
+        }
+        [data-theme="light"] footer { background: #eaedf2; }
+        .footer-container {
+            max-width: 1100px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .footer-socials { display: flex; gap: 20px; }
+        .footer-socials a {
+            color: var(--secondary-text); font-size: 1rem;
+            transition: var(--transition-smooth); text-decoration: none;
+        }
+        .footer-socials a:hover { color: var(--accent-color); }
+
+        /* Keyframes */
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width: 900px) {
+            .gallery-grid { columns: 2; }
+        }
+        @media(max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                position: fixed; top: 0; right: -100%;
+                width: 260px; height: 100vh;
+                background: var(--surface-color);
+                flex-direction: column; justify-content: center; gap: 40px;
+                border-left: 1px solid var(--border-color);
+                transition: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+            }
+            .nav-menu.active { right: 0; }
+            main { padding-top: 110px; }
+            .page-title { font-size: 2rem; }
+            .gallery-grid { columns: 2; }
+        }
+        @media(max-width: 480px) {
+            .gallery-grid { columns: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <div class="logo"><a href="index.html">Haiqal<span>.G</span></a></div>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="story.html" class="nav-link">Story</a></li>
+                    <li><a href="capabilities.html" class="nav-link">Capabilities</a></li>
+                    <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <div style="display:flex; align-items:center; gap:18px;">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme"><i class="fa-solid fa-moon"></i></button>
+                <button class="hamburger" id="hamburger" aria-label="Open Menu"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- PAGE HEADER -->
+        <div class="page-header">
+            <h1 class="page-title">Captured <span>Moments</span></h1>
+            <div class="title-underline"></div>
+        </div>
+
+        <!-- FILTER TABS -->
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">All Logs</button>
+            <button class="filter-btn" data-filter="me">Myself</button>
+            <button class="filter-btn" data-filter="family">Family</button>
+            <button class="filter-btn" data-filter="friends">Friends</button>
+        </div>
+
+        <!-- GALLERY GRID -->
+        <!-- 
+            CARA TUKAR GAMBAR:
+            1. Simpan gambar kau dalam folder sama dengan file HTML ni
+            2. Tukar src="..." kepada nama file gambar kau, contoh: src="gambar1.jpg"
+            3. Tukar data-category kepada: "me" / "family" / "friends"
+            4. Tukar data-caption untuk label hover
+            Tambah atau buang <div class="gallery-item"> ikut berapa gambar kau ada.
+        -->
+
+        <div class="gallery-grid" id="galleryGrid">
+
+            <!-- ME -->
+            <div class="gallery-item" data-category="me">
+                <img src="me1.jpg" alt="Me">
+                <div class="overlay">
+                    <div class="overlay-tag">Myself</div>
+                    <div class="overlay-title">Me</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="me">
+                <img src="me2.jpg" alt="Me 2">
+                <div class="overlay">
+                    <div class="overlay-tag">Myself</div>
+                    <div class="overlay-title">Portrait</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="me">
+                <img src="me3.jpg" alt="Me 3">
+                <div class="overlay">
+                    <div class="overlay-tag">Myself</div>
+                    <div class="overlay-title">Hobby</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="me">
+                <img src="me4.jpg" alt="Me 4">
+                <div class="overlay">
+                    <div class="overlay-tag">Myself</div>
+                    <div class="overlay-title">Fishing</div>
+                </div>
+            </div>
+
+            <!-- FAMILY -->
+            <div class="gallery-item" data-category="family">
+                <img src="gambar_family_1.jpg" alt="Family 1">
+                <div class="overlay">
+                    <div class="overlay-tag">Family</div>
+                    <div class="overlay-title">Moments</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="family">
+                <img src="family3.jpg" alt="Family 2">
+                <div class="overlay">
+                    <div class="overlay-tag">Family</div>
+                    <div class="overlay-title">Home</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="family">
+                <img src="family4.jpg" alt="Family 3">
+                <div class="overlay">
+                    <div class="overlay-tag">Family</div>
+                    <div class="overlay-title">Together</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="family">
+                <img src="family5.jpg" alt="Family 4">
+                <div class="overlay">
+                    <div class="overlay-tag">Family</div>
+                    <div class="overlay-title">Parents</div>
+                </div>
+            </div>
+
+            <!-- FRIENDS -->
+            <div class="gallery-item" data-category="friends">
+                <img src="kawan2.jpg" alt="Friends 1">
+                <div class="overlay">
+                    <div class="overlay-tag">Friends</div>
+                    <div class="overlay-title">Good Times</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="friends">
+                <img src="kawan1.jpg" alt="Friends 2">
+                <div class="overlay">
+                    <div class="overlay-tag">Friends</div>
+                    <div class="overlay-title">Squad</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="friends">
+                <img src="kawan3.jpg" alt="Friends 3">
+                <div class="overlay">
+                    <div class="overlay-tag">Friends</div>
+                    <div class="overlay-title">Crew</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="friends">
+                <img src="kawan4.jpg" alt="Friends 4">
+                <div class="overlay">
+                    <div class="overlay-tag">Friends</div>
+                    <div class="overlay-title">Alliance</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="empty-state" id="emptyState">
+            <i class="fa-regular fa-images"></i>
+            No photos in this category yet.
+        </div>
+
+    </main>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose"><i class="fa-solid fa-xmark"></i></button>
+        <img src="" alt="" id="lightboxImg">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div>© 2026 Ahmad Haiqal Gadafi. All Rights Reserved.</div>
+            <div class="footer-socials">
+                <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="contact.html"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ── THEME TOGGLE ──
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        themeToggle.innerHTML = (currentTheme === 'dark') ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        themeToggle.addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.innerHTML = (theme === 'dark') ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        });
+
+        // ── HAMBURGER ──
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+        });
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                hamburger.querySelector('i').className = 'fa-solid fa-bars';
+            }
+        });
+
+        // ── FILTER ──
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const emptyState = document.getElementById('emptyState');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+                let visibleCount = 0;
+
+                galleryItems.forEach((item, i) => {
+                    const cat = item.getAttribute('data-category');
+                    const show = filter === 'all' || cat === filter;
+
+                    if (show) {
+                        item.classList.remove('hidden');
+                        // stagger fade-in
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, visibleCount * 60);
+                        visibleCount++;
+                    } else {
+                        item.classList.add('hidden');
+                        item.style.opacity = '';
+                        item.style.transform = '';
+                        item.style.transition = '';
+                    }
+                });
+
+                emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+            });
+        });
+
+        // ── LIGHTBOX ──
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                const tag = item.querySelector('.overlay-tag').textContent;
+                const title = item.querySelector('.overlay-title').textContent;
+                lightboxImg.src = img.src;
+                lightboxImg.alt = title;
+                lightboxCaption.innerHTML = `<span>${tag}</span> — ${title}`;
+                lightbox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>

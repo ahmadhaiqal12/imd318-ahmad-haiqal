@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmad Haiqal Gadafi // About</title>
+    <!-- Font Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Icon Framework -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Global Variable & Branding Colors */
+        :root { 
+            --bg-color: #000000; 
+            --surface-color: #0b0d10; 
+            --border-color: #1a1f26; 
+            --primary-text: #ffffff; 
+            --secondary-text: #90a0b5; 
+            --accent-color: #00ffcc; 
+            --accent-glow: rgba(0, 255, 204, 0.25); 
+            --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.8); 
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+            --border-radius: 16px; 
+        }
+
+        [data-theme="light"] { 
+            --bg-color: #f4f6f9; 
+            --surface-color: #ffffff; 
+            --border-color: #e2e8f0; 
+            --primary-text: #0f172a; 
+            --secondary-text: #64748b; 
+            --accent-color: #00a884; 
+            --accent-glow: rgba(0, 168, 132, 0.15); 
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--primary-text); 
+            transition: background-color 0.4s, color 0.4s; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow-x: hidden;
+        }
+
+        /* Fixed Navigation Header */
+        header { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            background-color: rgba(0, 0, 0, 0.6); 
+            backdrop-filter: blur(12px); 
+            border-bottom: 1px solid var(--border-color); 
+            z-index: 1000; 
+            padding: 20px 0; 
+        }
+        
+        [data-theme="light"] header { 
+            background-color: rgba(244, 246, 249, 0.7); 
+        }
+
+        .nav-container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 0 20px; 
+        }
+
+        .logo { 
+            font-weight: 800; 
+            font-size: 1.4rem; 
+            letter-spacing: -0.5px;
+        }
+        
+        .logo span { 
+            color: var(--accent-color); 
+        }
+        
+        .logo a { 
+            color: var(--primary-text); 
+            text-decoration: none; 
+        }
+
+        .nav-menu { 
+            display: flex; 
+            gap: 35px; 
+            list-style: none; 
+            align-items: center; 
+        }
+
+        .nav-link { 
+            font-size: 0.9rem; 
+            font-weight: 500; 
+            color: var(--secondary-text); 
+            text-decoration: none; 
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition-smooth); 
+        }
+
+        .nav-link:hover, .nav-link.active { 
+            color: var(--primary-text); 
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link.active::after, .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle, .hamburger { 
+            background: none; 
+            border: none; 
+            font-size: 1.2rem; 
+            color: var(--primary-text); 
+            cursor: pointer; 
+            transition: var(--transition-smooth);
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .hamburger { 
+            display: none; 
+            position: relative;
+            z-index: 1001;
+        }
+
+        /* --- MAIN CONTENT LAYOUT --- */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 140px 20px 80px 20px;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .page-title span {
+            color: var(--accent-color);
+        }
+
+        .page-subtitle {
+            color: var(--secondary-text);
+            font-size: 1rem;
+            margin-bottom: 50px;
+        }
+
+        /* About Main Grid */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.8fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        /* Left Side: Profile Card */
+        .profile-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .profile-img-wrapper {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 25px auto;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .profile-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-card h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .profile-card p {
+            font-size: 0.85rem;
+            color: var(--secondary-text);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .biodata-list {
+            text-align: left;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            list-style: none;
+        }
+
+        .biodata-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .biodata-label {
+            color: var(--secondary-text);
+            font-weight: 500;
+        }
+
+        .biodata-value {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Right Side: Core Sections */
+        .content-stream {
+            display: flex;
+            flex-direction: column;
+            gap: 45px;
+        }
+
+        .info-section {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent-color);
+        }
+
+        .info-section h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-section h3 i {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+
+        .info-section p {
+            color: var(--secondary-text);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        /* --- ADVANCED TIMELINE SYSTEM (EDUCATION) --- */
+        .edu-timeline {
+            position: relative;
+            margin: 25px 0 10px 15px;
+            padding-left: 30px;
+        }
+
+        /* Garis menegak utama belah kiri */
+        .edu-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            bottom: 8px;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent-color), var(--border-color));
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .edu-node {
+            position: relative;
+            padding-bottom: 35px;
+        }
+
+        .edu-node:last-child {
+            padding-bottom: 0;
+        }
+
+        /* Node Bulatan Timeline */
+        .edu-node::before {
+            content: '';
+            position: absolute;
+            left: -37px; /* Letak ngam-ngam atas paksi garis */
+            top: 4px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            border: 3px solid var(--accent-color);
+            z-index: 2;
+            box-shadow: 0 0 8px var(--accent-color);
+            transition: var(--transition-smooth);
+        }
+
+        .edu-node:hover::before {
+            background-color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        .edu-node h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 3px;
+            transition: var(--transition-smooth);
+        }
+
+        .edu-node:hover h4 {
+            color: var(--accent-color);
+        }
+
+        .edu-meta {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edu-meta span.edu-year {
+            background: rgba(0, 255, 204, 0.1);
+            padding: 2px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 204, 0.25);
+            font-size: 0.75rem;
+        }
+
+        [data-theme="light"] .edu-meta span.edu-year {
+            background: rgba(0, 168, 132, 0.1);
+            border-color: rgba(0, 168, 132, 0.25);
+        }
+
+        .edu-node p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* --- INTERACTIVE FAMILY GRID LAYOUT --- */
+        .family-layout-box {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 25px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .family-text-content p {
+            margin-bottom: 15px;
+        }
+
+        .family-text-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .family-tap-card {
+            position: relative;
+            border-radius: calc(var(--border-radius) - 4px);
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+            background-color: #0d0f12;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="light"] .family-tap-card {
+            background-color: #eaedf2;
+        }
+
+        .family-tap-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            filter: grayscale(100%);
+            transition: var(--transition-smooth);
+        }
+
+        .family-tap-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 13, 16, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="light"] .family-tap-overlay {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .family-tap-overlay i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .family-tap-overlay span {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="light"] .family-tap-overlay span {
+            color: var(--primary-text);
+        }
+
+        .family-tap-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: scale(1.03);
+        }
+
+        .family-tap-card:hover img {
+            opacity: 0.9;
+            filter: grayscale(0%);
+        }
+
+        .family-tap-card:hover .family-tap-overlay {
+            background: rgba(11, 13, 16, 0.1);
+            backdrop-filter: blur(2px);
+        }
+
+        .family-tap-card:hover .family-tap-overlay i {
+            transform: scale(1.25);
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .family-tap-card:hover .family-tap-overlay span {
+            color: var(--accent-color);
+        }
+
+        /* Footer Element */
+        footer { 
+            background: #050608; 
+            color: var(--secondary-text); 
+            padding: 25px 20px; 
+            border-top: 1px solid var(--border-color); 
+            font-size: 0.82rem; 
+            margin-top: auto;
+        }
+        
+        [data-theme="light"] footer { 
+            background: #eaedf2; 
+        }
+
+        .footer-container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-socials a {
+            color: var(--secondary-text);
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-socials a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive Breakpoints */
+        @media(max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+        }
+
+        @media(max-width: 768px) {
+            .hamburger { 
+                display: block; 
+            }
+            
+            .nav-menu { 
+                position: fixed; 
+                top: 0; 
+                right: -100%; 
+                width: 260px; 
+                height: 100vh; 
+                background: var(--surface-color); 
+                flex-direction: column; 
+                justify-content: center; 
+                gap: 40px;
+                border-left: 1px solid var(--border-color); 
+                transition: 0.4s cubic-bezier(0.25, 1, 0.5, 1); 
+                box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+            }
+            
+            .nav-menu.active { 
+                right: 0; 
+            }
+
+            main {
+                padding-top: 110px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .family-layout-box {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="logo"><a href="index.html">Haiqal<span>.G</span></a></div>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link active">About</a></li>
+                    <li><a href="story.html" class="nav-link">Story</a></li>
+                    <li><a href="capabilities.html" class="nav-link">Capabilities</a></li>
+                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <div style="display:flex; align-items:center; gap:18px;">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme"><i class="fa-solid fa-moon"></i></button>
+                <button class="hamburger" id="hamburger" aria-label="Open Menu"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main>
+        <h1 class="page-title">About <span>Me</span></h1>
+        <p class="page-subtitle">Personal Data Log, Background Information, And Academic Journey.</p>
+
+        <div class="about-grid">
+            
+            <!-- LEFT: Profile Summary Card -->
+            <div class="profile-card">
+                <div class="profile-img-wrapper">
+                    <!-- Sediakan gambar portrait korang dekat sini -->
+                    <img src="haiqal.story.png" alt="Ahmad Haiqal Profile">
+                </div>
+                <h2>Ahmad Haiqal Bin Ahmad Gadafi</h2>
+                <p>UiTM Student // IM110</p>
+                
+                <ul class="biodata-list">
+                    <li class="biodata-item">
+                        <span class="biodata-label">Nama Penuh:</span>
+                        <span class="biodata-value">Ahmad Haiqal Bin Ahmad Gadafi</span>
+                    </li>
+                    <li class="biodata-item">
+                        <span class="biodata-label">Umur:</span>
+                        <span class="biodata-value">21 Tahun</span>
+                    </li>
+                    <li class="biodata-item">
+                        <span class="biodata-label">Tarikh Lahir:</span>
+                        <span class="biodata-value">23 Februari 2005</span>
+                    </li>
+                    <li class="biodata-item">
+                        <span class="biodata-label">Status:</span>
+                        <span class="biodata-value">Pelajar Aktif</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- RIGHT: Core Personal Content Streams -->
+            <div class="content-stream">
+                
+                <!-- Section 1: Mengenai Diri (About) -->
+                <div class="info-section">
+                    <h3><i class="fa-solid fa-user-gear"></i> Profile Summary</h3>
+                    <p>Hi, I’m Ahmad Haiqal Bin Ahmad Gadafi. I have a deep passion for information systems management, data organization, and the exploration of web application development in general.
+
+This web portfolio was built specifically as a digital expression medium to showcase my academic achievements, the technical skills I have explored, and my personal interest in clean, well-structured code design and personal interest.</p>
+                </div>
+
+                <!-- Section 2: Academic Background (Education dengan Kemas Kini Timeline Menegak) -->
+                <div class="info-section">
+                    <h3><i class="fa-solid fa-graduation-cap"></i> Academic Background</h3>
+                    <p>The chronology of my educational journey, from my early schooling years to higher education.:</p>
+                    
+                    <!-- SISTEM TIMELINE VISUAL -->
+                    <div class="edu-timeline">
+                        
+                        <!-- Node 1: High School -->
+                        <div class="edu-node">
+                            <h4>High School</h4>
+                            <div class="edu-meta">
+                                <span class="edu-year">Sekolah Menengah</span>
+                                <span>SMK TELUK KUMBAR</span>
+                            </div>
+                            <p>Building foundational skills in communication, self-discipline, and a keen interest in computer technology and organizational management through school associations before advancing to higher education.</p>
+                        </div>
+
+                        <!-- Node 2: UiTM -->
+                        <div class="edu-node">
+                            <h4>Universiti Teknologi MARA (UiTM) Cawangan Kedah</h4>
+                            <div class="edu-meta">
+                                <span class="edu-year">Higher Education</span>
+                                <span>Diploma Information Management (IM110)</span>
+                            </div>
+                            <p>Studied information preservation techniques, relational database analysis, and the refinement of metadata description standards, alongside the fundamentals of modern archive agency and digital library management.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section 3: Keluarga (Family) -->
+                <div class="info-section">
+                    <h3><i class="fa-solid fa-people-roof"></i> Family & Life</h3>
+                    
+                    <div class="family-layout-box">
+                        <div class="family-text-content">
+                            <p>My family is my core support system and the primary driving force behind every success and academic milestone I have achieved to date. At home, my daily life is enlivened by my beloved cats, Luna and Yen, who have been my loyal companions throughout all my projects and tasks.</p>
+                            <p>Their presence keeps me grounded and provides the perfect balance to my busy academic and professional life.</p>
+                        </div>
+                        
+                        <!-- Kotak Gambar Interaktif Klik -->
+                        <div class="family-tap-card" onclick="window.location.href='gallery.html';">
+                            <img src="family2.jpg" alt="Family Legacy Preview">
+                            <div class="family-tap-overlay">
+                                <i class="fa-solid fa-arrow-pointer"></i>
+                                <span>Tap to see my family</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- System Footer -->
+    <footer>
+        <div class="footer-container">
+            <div>© 2026 Ahmad Haiqal Gadafi. All Rights Reserved.</div>
+            <div class="footer-socials">
+                <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="contact.html"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT CONTROLLER -->
+    <script>
+        // --- SYSTEM CONTROLLER (THEME & HAMBURGER) ---
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        themeToggle.innerHTML = (currentTheme === 'dark') ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+
+        themeToggle.addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.innerHTML = (theme === 'dark') ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        });
+
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                hamburger.querySelector('i').className = 'fa-solid fa-bars';
+            }
+        });
+    </script>
+</body>
+</html>
